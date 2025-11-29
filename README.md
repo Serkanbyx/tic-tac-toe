@@ -36,7 +36,7 @@ This project requires no dependencies or installation. You can run it directly i
 
 ## Live Demo
 
-[Demo Link Will Be Here]
+[Click Here to Play](https://tic-tac-toeeeeeeeeee.netlify.app/)
 
 ## License
 
