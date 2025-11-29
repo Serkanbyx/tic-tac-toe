@@ -1,48 +1,43 @@
-# Tic Tac Toe (XOX Oyunu)
+# Tic Tac Toe
 
-Bu proje, klasik Tic Tac Toe oyununun modern, responsive ve erişilebilir bir web uygulaması sürümüdür. HTML, CSS ve Vanilla JavaScript kullanılarak geliştirilmiştir.
+A modern, responsive, and accessible web-based Tic Tac Toe game built with HTML, CSS, and Vanilla JavaScript.
 
-## Özellikler
+## Features
 
-- **Oyun Mantığı:** Klasik XOX kuralları (kazanma, beraberlik, sıra değişimi).
-- **Skor Tablosu:** Oyun sırasında oyuncuların skorlarını takip eder.
-- **Responsive Tasarım:** Mobil cihazlar ve masaüstü ekranlar için uyumlu grid yapısı.
-- **Kullanıcı Dostu:** Kazanan hücrelerin vurgulanması ve oyun durumu bildirimleri.
-- **Temiz Kod:** Modüler CSS ve JavaScript yapısı.
+- **Game Logic:** Classic Tic Tac Toe rules (win, draw, turn switching).
+- **Scoreboard:** Tracks player scores during the session.
+- **Responsive Design:** Grid layout optimized for both mobile and desktop devices.
+- **User Friendly:** Winning cells highlight and game status notifications.
+- **Clean Code:** Modular CSS and JavaScript structure.
 
-## Kurulum ve Çalıştırma
+## Installation & Usage
 
-Bu proje herhangi bir bağımlılık veya kurulum gerektirmez. Tarayıcınızda doğrudan çalıştırabilirsiniz.
+This project requires no dependencies or installation. You can run it directly in your browser.
 
-1. Projeyi bilgisayarınıza indirin veya kopyalayın:
+1. Clone or download the project:
    ```bash
-   git clone https://github.com/kullaniciadi/tic-tac-toe.git
+   git clone https://github.com/username/tic-tac-toe.git
    ```
-2. Klasörün içine girin.
-3. `index.html` dosyasını favori web tarayıcınızda (Chrome, Firefox, Edge vb.) açın.
+2. Navigate to the project directory.
+3. Open `index.html` in your favorite web browser (Chrome, Firefox, Edge, etc.).
 
-## Teknolojiler
+## Technologies
 
-- **HTML5:** Semantik yapı ve erişilebilirlik.
-- **CSS3:** Grid Layout, Flexbox, CSS Değişkenleri (Variables), Animasyonlar.
-- **JavaScript (ES6+):** DOM manipülasyonu, oyun state yönetimi.
+- **HTML5:** Semantic structure and accessibility.
+- **CSS3:** Grid Layout, Flexbox, CSS Variables, Animations.
+- **JavaScript (ES6+):** DOM manipulation, game state management.
 
-## Oyun Kuralları
+## Game Rules
 
-1. Oyun 3x3'lük bir ızgarada oynanır.
-2. İki oyuncu sırayla hücrelere işaretlerini (X veya O) koyar.
-3. Yatay, dikey veya çapraz olarak 3 aynı işareti yan yana getiren oyuncu oyunu kazanır.
-4. Tüm hücreler dolmasına rağmen kazanan yoksa oyun beraberlikle biter.
+1. The game is played on a 3x3 grid.
+2. Two players take turns marking available cells with their symbol (X or O).
+3. The first player to align 3 of their symbols horizontally, vertically, or diagonally wins the game.
+4. If all cells are filled and no player has won, the game ends in a draw.
 
-## Ekran Görüntüleri
+## Live Demo
 
-*(Buraya oyunun ekran görüntülerini ekleyebilirsiniz)*
+[Demo Link Will Be Here]
 
-## Canlı Demo
+## License
 
-[Demo Linki Buraya Gelecek]
-
-## Lisans
-
-Bu proje MIT lisansı altında sunulmuştur.
-
+This project is licensed under the MIT License.

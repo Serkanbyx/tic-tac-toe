@@ -28,7 +28,7 @@ initializeGame();
 function initializeGame() {
     cells.forEach(cell => cell.addEventListener('click', cellClicked));
     restartBtn.addEventListener('click', restartGame);
-    statusText.textContent = `Sıra: ${currentPlayer}`;
+    statusText.textContent = `Turn: ${currentPlayer}`;
     running = true;
 }
 
@@ -47,13 +47,13 @@ function updateCell(cell, index) {
     options[index] = currentPlayer;
     cell.textContent = currentPlayer;
     
-    // Stil için class ekle
+    // Add class for styling
     cell.classList.add(currentPlayer.toLowerCase());
 }
 
 function changePlayer() {
     currentPlayer = (currentPlayer === "X") ? "O" : "X";
-    statusText.textContent = `Sıra: ${currentPlayer}`;
+    statusText.textContent = `Turn: ${currentPlayer}`;
 }
 
 function checkWinner() {
@@ -78,12 +78,12 @@ function checkWinner() {
     }
 
     if (roundWon) {
-        statusText.textContent = `${currentPlayer} Kazandı!`;
+        statusText.textContent = `${currentPlayer} Wins!`;
         running = false;
         highlightWinningCells(winningCells);
         updateScore(currentPlayer);
     } else if (!options.includes("")) {
-        statusText.textContent = `Beraberlik!`;
+        statusText.textContent = `Draw!`;
         running = false;
     } else {
         changePlayer();
@@ -108,11 +108,10 @@ function updateScore(winner) {
 function restartGame() {
     currentPlayer = "X";
     options = ["", "", "", "", "", "", "", "", ""];
-    statusText.textContent = `Sıra: ${currentPlayer}`;
+    statusText.textContent = `Turn: ${currentPlayer}`;
     cells.forEach(cell => {
         cell.textContent = "";
         cell.classList.remove('x', 'o', 'win');
     });
     running = true;
 }
-

@@ -69,7 +69,7 @@ body {
     margin-bottom: 20px;
     font-size: 1.2rem;
     font-weight: bold;
-    height: 1.5rem; /* Sabit yükseklik, zıplamayı önler */
+    height: 1.5rem; /* Fixed height to prevent jumping */
 }
 
 .game-grid {
@@ -82,7 +82,7 @@ body {
 
 .cell {
     background-color: var(--cell-bg);
-    height: 100px; /* Mobil için uygun yükseklik */
+    height: 100px; /* Suitable height for mobile */
     border: none;
     border-radius: var(--border-radius);
     font-size: 3rem;
@@ -108,7 +108,7 @@ body {
 }
 
 .cell.o {
-    color: #ffffff; /* Beyaz O */
+    color: #ffffff; /* White O */
 }
 
 .cell.win {
@@ -143,7 +143,7 @@ body {
     100% { transform: scale(1); }
 }
 
-/* Medya sorguları ile daha büyük ekranlar için ayar */
+/* Media queries for larger screens */
 @media (min-width: 600px) {
     .cell {
         height: 120px;
@@ -154,4 +154,3 @@ body {
         font-size: 3.5rem;
     }
 }
-

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,36 +12,36 @@
 
       <div class="score-board">
         <div class="score-box player-x">
-          <span class="player-name">Oyuncu X</span>
+          <span class="player-name">Player X</span>
           <span class="score" id="score-x">0</span>
         </div>
         <div class="score-box player-o">
-          <span class="player-name">Oyuncu O</span>
+          <span class="player-name">Player O</span>
           <span class="score" id="score-o">0</span>
         </div>
       </div>
 
-      <div class="game-status" id="game-status">Sıra: X</div>
+      <div class="game-status" id="game-status">Turn: X</div>
 
       <div
         class="game-grid"
         id="game-grid"
         role="grid"
-        aria-label="Tic Tac Toe Oyun Alanı"
+        aria-label="Tic Tac Toe Game Grid"
       >
-        <!-- Hücreler JS ile dinamik oluşturulabilir veya statik olabilir. Statik yapıp JS ile yöneteceğim. -->
-        <button class="cell" data-index="0" aria-label="Hücre 0"></button>
-        <button class="cell" data-index="1" aria-label="Hücre 1"></button>
-        <button class="cell" data-index="2" aria-label="Hücre 2"></button>
-        <button class="cell" data-index="3" aria-label="Hücre 3"></button>
-        <button class="cell" data-index="4" aria-label="Hücre 4"></button>
-        <button class="cell" data-index="5" aria-label="Hücre 5"></button>
-        <button class="cell" data-index="6" aria-label="Hücre 6"></button>
-        <button class="cell" data-index="7" aria-label="Hücre 7"></button>
-        <button class="cell" data-index="8" aria-label="Hücre 8"></button>
+        <!-- Cells managed by JS -->
+        <button class="cell" data-index="0" aria-label="Cell 0"></button>
+        <button class="cell" data-index="1" aria-label="Cell 1"></button>
+        <button class="cell" data-index="2" aria-label="Cell 2"></button>
+        <button class="cell" data-index="3" aria-label="Cell 3"></button>
+        <button class="cell" data-index="4" aria-label="Cell 4"></button>
+        <button class="cell" data-index="5" aria-label="Cell 5"></button>
+        <button class="cell" data-index="6" aria-label="Cell 6"></button>
+        <button class="cell" data-index="7" aria-label="Cell 7"></button>
+        <button class="cell" data-index="8" aria-label="Cell 8"></button>
       </div>
 
-      <button id="restart-btn" class="btn-restart">Oyunu Yeniden Başlat</button>
+      <button id="restart-btn" class="btn-restart">Restart Game</button>
     </main>
 
     <script src="js/script.js"></script>
