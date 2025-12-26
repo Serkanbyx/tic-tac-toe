@@ -10,6 +10,25 @@
     <main class="container">
       <h1 class="game-title">Tic Tac Toe</h1>
 
+      <!-- Game Mode Selector -->
+      <div class="mode-selector" id="mode-selector">
+        <button class="mode-btn active" data-mode="pvp">
+          <span class="mode-icon">👥</span>
+          <span class="mode-text">2 Players</span>
+        </button>
+        <button class="mode-btn" data-mode="ai">
+          <span class="mode-icon">🤖</span>
+          <span class="mode-text">vs AI</span>
+        </button>
+      </div>
+
+      <!-- AI Difficulty (shown only in AI mode) -->
+      <div class="difficulty-selector hidden" id="difficulty-selector">
+        <button class="diff-btn" data-difficulty="easy">Easy</button>
+        <button class="diff-btn active" data-difficulty="medium">Medium</button>
+        <button class="diff-btn" data-difficulty="hard">Hard</button>
+      </div>
+
       <div class="score-board">
         <div class="score-box player-x">
           <span class="player-name">Player X</span>

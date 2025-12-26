@@ -39,6 +39,95 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Mode Selector */
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.mode-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--cell-bg);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+}
+
+.mode-btn:hover {
+    background-color: var(--cell-hover);
+}
+
+.mode-btn.active {
+    border-color: var(--accent-red);
+    background-color: rgba(255, 0, 0, 0.15);
+}
+
+.mode-icon {
+    font-size: 1.5rem;
+}
+
+.mode-text {
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Difficulty Selector */
+.difficulty-selector {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.difficulty-selector.hidden {
+    display: none;
+}
+
+.diff-btn {
+    background-color: var(--cell-bg);
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.diff-btn:hover {
+    background-color: var(--cell-hover);
+}
+
+.diff-btn.active {
+    border-color: var(--accent-red);
+    background-color: rgba(255, 0, 0, 0.15);
+}
+
+/* AI thinking indicator */
+.thinking {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.thinking::after {
+    content: " 🤔";
+    animation: thinking 1s infinite;
+}
+
+@keyframes thinking {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
 .score-board {
     display: flex;
     justify-content: space-around;
