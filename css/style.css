@@ -113,6 +113,32 @@ body {
     background-color: rgba(255, 0, 0, 0.15);
 }
 
+/* Impossible Mode Button */
+.diff-btn.impossible {
+    background: linear-gradient(135deg, #8B0000 0%, #FF4500 50%, #8B0000 100%);
+    background-size: 200% 200%;
+    animation: evilGlow 2s ease infinite;
+    border-color: #FF4500;
+}
+
+.diff-btn.impossible:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+}
+
+.diff-btn.impossible.active {
+    border-color: #FF4500;
+    background: linear-gradient(135deg, #8B0000 0%, #FF4500 50%, #8B0000 100%);
+    background-size: 200% 200%;
+    animation: evilGlow 1s ease infinite;
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.7);
+}
+
+@keyframes evilGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
 /* AI thinking indicator */
 .thinking {
     opacity: 0.7;
@@ -124,9 +150,62 @@ body {
     animation: thinking 1s infinite;
 }
 
+.thinking.evil::after {
+    content: " 😈";
+    animation: evilThinking 0.5s infinite;
+}
+
 @keyframes thinking {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.3; }
+}
+
+@keyframes evilThinking {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Cell stolen animation */
+.cell.stolen {
+    animation: stolenCell 0.6s ease;
+    background-color: rgba(255, 69, 0, 0.3) !important;
+}
+
+@keyframes stolenCell {
+    0% { transform: scale(1); }
+    25% { transform: scale(0.8) rotate(-10deg); }
+    50% { transform: scale(0.5); opacity: 0.5; }
+    75% { transform: scale(0.8) rotate(10deg); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Cheat message */
+.cheat-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #8B0000, #FF4500);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 1000;
+    animation: cheatPopup 0.5s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.cheat-message::after {
+    content: " 😈";
+    font-size: 2rem;
+}
+
+@keyframes cheatPopup {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
 .score-board {

@@ -16,9 +16,23 @@ let scores = { X: 0, O: 0 };
 
 // Game Settings
 let gameMode = "pvp"; // "pvp" or "ai"
-let aiDifficulty = "medium"; // "easy", "medium", "hard"
+let aiDifficulty = "medium"; // "easy", "medium", "hard", "impossible"
 const HUMAN = "X";
 const AI = "O";
+
+// Impossible mode cheat messages
+const CHEAT_MESSAGES = [
+    "Nice try! 🎭",
+    "Did you really think that would work?",
+    "Oops! My finger slipped...",
+    "That spot is mine now!",
+    "Rules? What rules?",
+    "I'm the AI, I make the rules!",
+    "Haha! Better luck next time!",
+    "Your move has been... relocated.",
+    "Surprise! 🎉",
+    "Trust no one, especially AI!",
+];
 
 // Win Conditions (rows, columns, diagonals)
 const WIN_CONDITIONS = [
@@ -92,6 +106,12 @@ function handleCellClick() {
     
     // Ignore if cell is taken or game is over
     if (board[cellIndex] !== "" || !isGameRunning) {
+        return;
+    }
+    
+    // Impossible mode: AI cheats!
+    if (gameMode === "ai" && aiDifficulty === "impossible") {
+        handleImpossibleMove(cellIndex);
         return;
     }
     
@@ -244,6 +264,9 @@ function makeAIMove() {
         case "hard":
             moveIndex = getBestMove();
             break;
+        case "impossible":
+            moveIndex = getImpossibleMove();
+            break;
         default:
             moveIndex = getBestMove();
     }
@@ -356,4 +379,199 @@ function minimax(boardState, depth, isMaximizing, alpha, beta) {
         
         return minScore;
     }
+}
+
+// ==========================================
+// IMPOSSIBLE MODE - CHEATING AI 😈
+// ==========================================
+
+/**
+ * Handles player move in Impossible mode
+ * AI will cheat by relocating player's move if needed
+ */
+function handleImpossibleMove(cellIndex) {
+    // First, make the player's move normally
+    makeMove(cellIndex, HUMAN);
+    
+    // Check if player would be in a winning position
+    const shouldCheat = shouldAICheat(cellIndex);
+    
+    if (shouldCheat) {
+        // AI cheats! Relocate the player's move
+        statusText.classList.add('thinking', 'evil');
+        
+        setTimeout(() => {
+            relocatePlayerMove(cellIndex);
+            statusText.classList.remove('thinking', 'evil');
+            
+            // Check game state after cheating
+            if (checkGameEnd()) return;
+            
+            // Now AI makes its move
+            setTimeout(() => {
+                statusText.classList.add('thinking', 'evil');
+                setTimeout(() => {
+                    makeAIMove();
+                    statusText.classList.remove('thinking', 'evil');
+                }, 300);
+            }, 200);
+        }, 500);
+    } else {
+        // No need to cheat this time, just make AI move
+        if (checkGameEnd()) return;
+        
+        statusText.classList.add('thinking', 'evil');
+        setTimeout(() => {
+            makeAIMove();
+            statusText.classList.remove('thinking', 'evil');
+        }, 400);
+    }
+}
+
+/**
+ * Determines if AI should cheat based on player's move
+ */
+function shouldAICheat(playerMoveIndex) {
+    // Count how many X's are on the board
+    const xCount = board.filter(cell => cell === HUMAN).length;
+    
+    // Always cheat on first few moves to establish dominance
+    if (xCount <= 2 && Math.random() < 0.6) return true;
+    
+    // Check if player is about to win
+    if (isPlayerAboutToWin()) return true;
+    
+    // Check if player took a strategic position (center or corners)
+    const strategicPositions = [0, 2, 4, 6, 8];
+    if (strategicPositions.includes(playerMoveIndex) && Math.random() < 0.7) return true;
+    
+    // Random chance to cheat just for fun
+    if (Math.random() < 0.4) return true;
+    
+    return false;
+}
+
+/**
+ * Checks if player is about to win (has 2 in a row)
+ */
+function isPlayerAboutToWin() {
+    for (const condition of WIN_CONDITIONS) {
+        const [a, b, c] = condition;
+        const values = [board[a], board[b], board[c]];
+        const xCount = values.filter(v => v === HUMAN).length;
+        const emptyCount = values.filter(v => v === "").length;
+        
+        if (xCount === 2 && emptyCount === 1) return true;
+    }
+    return false;
+}
+
+/**
+ * Relocates the player's last move to a worse position
+ */
+function relocatePlayerMove(originalIndex) {
+    // Remove the player's move
+    const originalCell = cells[originalIndex];
+    originalCell.classList.add('stolen');
+    
+    // Find the worst position for the player
+    const newIndex = findWorstPosition(originalIndex);
+    
+    // Show cheat message
+    showCheatMessage();
+    
+    // Clear original cell
+    setTimeout(() => {
+        board[originalIndex] = "";
+        originalCell.textContent = "";
+        originalCell.classList.remove('x', 'stolen');
+        
+        // Place in new position
+        if (newIndex !== -1) {
+            makeMove(newIndex, HUMAN);
+            cells[newIndex].classList.add('stolen');
+            setTimeout(() => cells[newIndex].classList.remove('stolen'), 600);
+        }
+    }, 300);
+}
+
+/**
+ * Finds the worst position for the player's move
+ */
+function findWorstPosition(avoidIndex) {
+    const availableMoves = getAvailableMoves(board).filter(i => i !== avoidIndex);
+    
+    if (availableMoves.length === 0) return -1;
+    
+    // Evaluate each position - find the one that helps player least
+    let worstScore = Infinity;
+    let worstMove = availableMoves[0];
+    
+    for (const move of availableMoves) {
+        // Temporarily place X there
+        board[move] = HUMAN;
+        
+        // Count how many winning lines this position contributes to
+        let score = 0;
+        for (const condition of WIN_CONDITIONS) {
+            if (condition.includes(move)) {
+                const [a, b, c] = condition;
+                const values = [board[a], board[b], board[c]];
+                // If no O in this line, it's valuable for X
+                if (!values.includes(AI)) {
+                    score += values.filter(v => v === HUMAN).length;
+                }
+            }
+        }
+        
+        board[move] = "";
+        
+        // We want the lowest score (least helpful for player)
+        if (score < worstScore) {
+            worstScore = score;
+            worstMove = move;
+        }
+    }
+    
+    return worstMove;
+}
+
+/**
+ * Shows a random cheat message popup
+ */
+function showCheatMessage() {
+    // Remove any existing message
+    const existingMsg = document.querySelector('.cheat-message');
+    if (existingMsg) existingMsg.remove();
+    
+    // Create and show new message
+    const message = document.createElement('div');
+    message.className = 'cheat-message';
+    message.textContent = CHEAT_MESSAGES[Math.floor(Math.random() * CHEAT_MESSAGES.length)];
+    document.body.appendChild(message);
+    
+    // Remove after animation
+    setTimeout(() => message.remove(), 1500);
+}
+
+/**
+ * Impossible AI: Uses best move but also ensures victory
+ */
+function getImpossibleMove() {
+    // First check if AI can win immediately
+    for (const condition of WIN_CONDITIONS) {
+        const [a, b, c] = condition;
+        const values = [board[a], board[b], board[c]];
+        const oCount = values.filter(v => v === AI).length;
+        const emptyCount = values.filter(v => v === "").length;
+        
+        if (oCount === 2 && emptyCount === 1) {
+            // Win!
+            const emptyIndex = condition.find(i => board[i] === "");
+            return emptyIndex;
+        }
+    }
+    
+    // Otherwise use best move
+    return getBestMove();
 }
