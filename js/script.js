@@ -207,6 +207,15 @@ function getAvailableMoves(boardState) {
 }
 
 /**
+ * Resolves after the given delay in milliseconds
+ * @param {number} ms - Delay duration in milliseconds
+ * @returns {Promise<void>}
+ */
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
  * Highlights the winning cells with animation
  */
 function highlightWinningCells(indices) {
@@ -392,55 +401,47 @@ function minimax(boardState, depth, isMaximizing, alpha, beta) {
  * AI will cheat by relocating player's move if needed
  * Uses isProcessingMove flag to prevent race conditions
  */
-function handleImpossibleMove(cellIndex) {
+async function handleImpossibleMove(cellIndex) {
     // Lock to prevent concurrent move processing
     isProcessingMove = true;
     
-    // First, make the player's move normally
-    makeMove(cellIndex, HUMAN);
-    
-    // Check if player would be in a winning position
-    const shouldCheat = shouldAICheat(cellIndex);
-    
-    if (shouldCheat) {
-        // AI cheats! Relocate the player's move
-        statusText.classList.add('thinking', 'evil');
+    try {
+        // First, make the player's move normally
+        makeMove(cellIndex, HUMAN);
         
-        setTimeout(() => {
-            relocatePlayerMove(cellIndex);
+        // Check if player would be in a winning position
+        const shouldCheat = shouldAICheat(cellIndex);
+        
+        if (shouldCheat) {
+            // AI cheats! Relocate the player's move
+            statusText.classList.add('thinking', 'evil');
+            await delay(500);
+            
+            // Await the relocation so the board reflects it before checking
+            await relocatePlayerMove(cellIndex);
             statusText.classList.remove('thinking', 'evil');
             
-            // Check game state after cheating
-            if (checkGameEnd()) {
-                isProcessingMove = false;
-                return;
-            }
+            // Now the game state is checked against the updated board
+            if (checkGameEnd()) return;
             
-            // Now AI makes its move
-            setTimeout(() => {
-                statusText.classList.add('thinking', 'evil');
-                setTimeout(() => {
-                    makeAIMove();
-                    statusText.classList.remove('thinking', 'evil');
-                    // Unlock after all operations complete
-                    isProcessingMove = false;
-                }, 300);
-            }, 200);
-        }, 500);
-    } else {
-        // No need to cheat this time, just make AI move
-        if (checkGameEnd()) {
-            isProcessingMove = false;
-            return;
-        }
-        
-        statusText.classList.add('thinking', 'evil');
-        setTimeout(() => {
+            // AI makes its move
+            await delay(200);
+            statusText.classList.add('thinking', 'evil');
+            await delay(300);
             makeAIMove();
             statusText.classList.remove('thinking', 'evil');
-            // Unlock after AI move completes
-            isProcessingMove = false;
-        }, 400);
+        } else {
+            // No need to cheat this time, just make AI move
+            if (checkGameEnd()) return;
+            
+            statusText.classList.add('thinking', 'evil');
+            await delay(400);
+            makeAIMove();
+            statusText.classList.remove('thinking', 'evil');
+        }
+    } finally {
+        // Unlock after all operations complete
+        isProcessingMove = false;
     }
 }
 
@@ -485,7 +486,7 @@ function isPlayerAboutToWin() {
 /**
  * Relocates the player's last move to a worse position
  */
-function relocatePlayerMove(originalIndex) {
+async function relocatePlayerMove(originalIndex) {
     // Remove the player's move
     const originalCell = cells[originalIndex];
     originalCell.classList.add('stolen');
@@ -496,19 +497,20 @@ function relocatePlayerMove(originalIndex) {
     // Show cheat message
     showCheatMessage();
     
+    // Wait for the steal animation before mutating the board
+    await delay(300);
+    
     // Clear original cell
-    setTimeout(() => {
-        board[originalIndex] = "";
-        originalCell.textContent = "";
-        originalCell.classList.remove('x', 'stolen');
-        
-        // Place in new position
-        if (newIndex !== -1) {
-            makeMove(newIndex, HUMAN);
-            cells[newIndex].classList.add('stolen');
-            setTimeout(() => cells[newIndex].classList.remove('stolen'), 600);
-        }
-    }, 300);
+    board[originalIndex] = "";
+    originalCell.textContent = "";
+    originalCell.classList.remove('x', 'stolen');
+    
+    // Place in new position
+    if (newIndex !== -1) {
+        makeMove(newIndex, HUMAN);
+        cells[newIndex].classList.add('stolen');
+        setTimeout(() => cells[newIndex].classList.remove('stolen'), 600);
+    }
 }
 
 /**
