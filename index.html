@@ -43,7 +43,15 @@
         </div>
       </div>
 
-      <div class="game-status" id="game-status">Turn: X</div>
+      <div
+        class="game-status"
+        id="game-status"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        Turn: X
+      </div>
 
       <div
         class="game-grid"
@@ -51,16 +59,21 @@
         role="grid"
         aria-label="Tic Tac Toe Game Grid"
       >
-        <!-- Cells managed by JS -->
-        <button class="cell" data-index="0" aria-label="Cell 0"></button>
-        <button class="cell" data-index="1" aria-label="Cell 1"></button>
-        <button class="cell" data-index="2" aria-label="Cell 2"></button>
-        <button class="cell" data-index="3" aria-label="Cell 3"></button>
-        <button class="cell" data-index="4" aria-label="Cell 4"></button>
-        <button class="cell" data-index="5" aria-label="Cell 5"></button>
-        <button class="cell" data-index="6" aria-label="Cell 6"></button>
-        <button class="cell" data-index="7" aria-label="Cell 7"></button>
-        <button class="cell" data-index="8" aria-label="Cell 8"></button>
+        <div class="grid-row" role="row">
+          <button class="cell" data-index="0" role="gridcell" aria-label="Cell 1, empty"></button>
+          <button class="cell" data-index="1" role="gridcell" aria-label="Cell 2, empty"></button>
+          <button class="cell" data-index="2" role="gridcell" aria-label="Cell 3, empty"></button>
+        </div>
+        <div class="grid-row" role="row">
+          <button class="cell" data-index="3" role="gridcell" aria-label="Cell 4, empty"></button>
+          <button class="cell" data-index="4" role="gridcell" aria-label="Cell 5, empty"></button>
+          <button class="cell" data-index="5" role="gridcell" aria-label="Cell 6, empty"></button>
+        </div>
+        <div class="grid-row" role="row">
+          <button class="cell" data-index="6" role="gridcell" aria-label="Cell 7, empty"></button>
+          <button class="cell" data-index="7" role="gridcell" aria-label="Cell 8, empty"></button>
+          <button class="cell" data-index="8" role="gridcell" aria-label="Cell 9, empty"></button>
+        </div>
       </div>
 
       <button id="restart-btn" class="btn-restart">Restart Game</button>

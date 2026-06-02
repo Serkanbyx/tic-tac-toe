@@ -249,6 +249,11 @@ body {
     margin-bottom: 20px;
 }
 
+/* Row wrappers provide ARIA grid semantics without affecting the CSS grid layout */
+.grid-row {
+    display: contents;
+}
+
 .cell {
     background-color: var(--cell-bg);
     height: 100px; /* Suitable height for mobile */

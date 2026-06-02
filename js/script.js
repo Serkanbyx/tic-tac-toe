@@ -140,6 +140,7 @@ function makeMove(index, player) {
     const cell = cells[index];
     cell.textContent = player;
     cell.classList.add(player.toLowerCase());
+    cell.setAttribute('aria-label', `Cell ${index + 1}, ${player}`);
 }
 
 /**
@@ -245,9 +246,10 @@ function restartGame() {
     isProcessingMove = false; // Reset processing lock
     updateStatus(`Turn: ${currentPlayer}`);
     
-    cells.forEach(cell => {
+    cells.forEach((cell, index) => {
         cell.textContent = "";
         cell.classList.remove('x', 'o', 'win');
+        cell.setAttribute('aria-label', `Cell ${index + 1}, empty`);
     });
     
     isGameRunning = true;
@@ -504,6 +506,7 @@ async function relocatePlayerMove(originalIndex) {
     board[originalIndex] = "";
     originalCell.textContent = "";
     originalCell.classList.remove('x', 'stolen');
+    originalCell.setAttribute('aria-label', `Cell ${originalIndex + 1}, empty`);
     
     // Place in new position
     if (newIndex !== -1) {
