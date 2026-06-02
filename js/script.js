@@ -13,7 +13,10 @@ let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let isGameRunning = false;
 let isProcessingMove = false; // Lock flag to prevent race condition
-let scores = { X: 0, O: 0 };
+
+// localStorage key for persisting scores across sessions
+const SCORES_STORAGE_KEY = "ticTacToeScores";
+let scores = loadScores();
 
 // Game Settings
 let gameMode = "pvp"; // "pvp" or "ai"
@@ -62,6 +65,7 @@ function initializeGame() {
         btn.addEventListener('click', () => selectDifficulty(btn.dataset.difficulty));
     });
     
+    renderScores();
     updateStatus(`Turn: ${currentPlayer}`);
     isGameRunning = true;
 }
@@ -226,14 +230,46 @@ function highlightWinningCells(indices) {
 }
 
 /**
- * Updates the score for the winner
+ * Updates the score for the winner and persists it
  */
 function updateScore(winner) {
     scores[winner]++;
-    if (winner === "X") {
-        scoreXEl.textContent = scores.X;
-    } else {
-        scoreOEl.textContent = scores.O;
+    renderScores();
+    saveScores();
+}
+
+/**
+ * Renders the current scores in the DOM
+ */
+function renderScores() {
+    scoreXEl.textContent = scores.X;
+    scoreOEl.textContent = scores.O;
+}
+
+/**
+ * Loads scores from localStorage, falling back to zeros
+ * @returns {{X: number, O: number}}
+ */
+function loadScores() {
+    try {
+        const stored = JSON.parse(localStorage.getItem(SCORES_STORAGE_KEY));
+        if (stored && Number.isFinite(stored.X) && Number.isFinite(stored.O)) {
+            return { X: stored.X, O: stored.O };
+        }
+    } catch {
+        // Ignore malformed or unavailable storage and reset to defaults
+    }
+    return { X: 0, O: 0 };
+}
+
+/**
+ * Persists the current scores to localStorage
+ */
+function saveScores() {
+    try {
+        localStorage.setItem(SCORES_STORAGE_KEY, JSON.stringify(scores));
+    } catch {
+        // Storage may be unavailable (e.g. private mode); fail silently
     }
 }
 
