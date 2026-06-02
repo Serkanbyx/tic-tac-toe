@@ -9,8 +9,9 @@ A modern, responsive Tic Tac Toe game featuring an unbeatable AI opponent powere
 ## Features
 
 - **Two Game Modes**: Play against a friend (PvP) or challenge the AI opponent
-- **Three Difficulty Levels**: Easy (random moves), Medium (70% optimal), Hard (unbeatable Minimax)
+- **Four Difficulty Levels**: Easy (random moves), Medium (70% optimal), Hard (unbeatable Minimax), and Impossible (a cheating AI that relocates your moves)
 - **Smart AI Opponent**: Powered by Minimax algorithm with alpha-beta pruning for optimal performance
+- **Impossible Mode**: A playful "cheating" AI that steals and relocates your moves with taunting messages and animations
 - **Score Tracking**: Keep track of wins for both players during your session
 - **Winning Highlights**: Animated highlighting of winning combinations
 - **Responsive Design**: Optimized for both desktop and mobile devices
@@ -73,7 +74,7 @@ Install "Live Server" extension and click "Go Live"
 ## Usage
 
 1. **Select Game Mode**: Choose between "2 Players" for local multiplayer or "vs AI" to play against the computer
-2. **Choose Difficulty** (AI mode only): Select Easy, Medium, or Hard difficulty
+2. **Choose Difficulty** (AI mode only): Select Easy, Medium, Hard, or Impossible difficulty
 3. **Make Your Move**: Click on any empty cell to place your symbol (X always goes first)
 4. **Win the Game**: Align three of your symbols horizontally, vertically, or diagonally
 5. **Track Your Score**: Scores are displayed at the top and persist during your session
@@ -116,11 +117,12 @@ To optimize performance, the algorithm uses alpha-beta pruning to eliminate bran
 
 ### Difficulty Levels
 
-| Level  | Strategy                              |
-| ------ | ------------------------------------- |
-| Easy   | Random valid move selection           |
-| Medium | 70% optimal move, 30% random          |
-| Hard   | Always optimal (Minimax) - Unbeatable |
+| Level      | Strategy                                                          |
+| ---------- | ----------------------------------------------------------------- |
+| Easy       | Random valid move selection                                       |
+| Medium     | 70% optimal move, 30% random                                      |
+| Hard       | Always optimal (Minimax) - Unbeatable                             |
+| Impossible | Cheats by relocating your moves to the worst spot - just for fun  |
 
 ## Customization
 
@@ -172,7 +174,7 @@ function makeMove(index, player) {
 - ✅ Classic 3x3 Tic Tac Toe gameplay
 - ✅ Two-player local multiplayer mode
 - ✅ AI opponent with Minimax algorithm
-- ✅ Three difficulty levels
+- ✅ Four difficulty levels (including a cheating "Impossible" mode)
 - ✅ Score tracking system
 - ✅ Winning cell highlighting with animation
 - ✅ Responsive mobile-first design
