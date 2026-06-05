@@ -12,7 +12,7 @@ A modern, responsive Tic Tac Toe game featuring an unbeatable AI opponent powere
 - **Four Difficulty Levels**: Easy (random moves), Medium (70% optimal), Hard (unbeatable Minimax), and Impossible (a cheating AI that relocates your moves)
 - **Smart AI Opponent**: Powered by Minimax algorithm with alpha-beta pruning for optimal performance
 - **Impossible Mode**: A playful "cheating" AI that steals and relocates your moves with taunting messages and animations
-- **Score Tracking**: Keep track of wins for both players during your session
+- **Persistent Score Tracking**: Wins for both players are saved to localStorage and restored across sessions
 - **Winning Highlights**: Animated highlighting of winning combinations
 - **Responsive Design**: Optimized for both desktop and mobile devices
 - **Accessible UI**: ARIA labels and semantic HTML for screen reader support
@@ -26,8 +26,9 @@ A modern, responsive Tic Tac Toe game featuring an unbeatable AI opponent powere
 
 - **HTML5**: Semantic markup with accessibility features (ARIA labels, roles)
 - **CSS3**: CSS Grid, Flexbox, CSS Variables, Keyframe Animations
-- **Vanilla JavaScript (ES6+)**: Modern JavaScript with no dependencies
+- **Vanilla JavaScript (ES6+)**: Modern JavaScript with no dependencies (async/await, Promises)
 - **Minimax Algorithm**: AI decision-making with alpha-beta pruning optimization
+- **LocalStorage API**: Persists player scores across sessions
 
 ## Installation
 
@@ -77,7 +78,7 @@ Install "Live Server" extension and click "Go Live"
 2. **Choose Difficulty** (AI mode only): Select Easy, Medium, Hard, or Impossible difficulty
 3. **Make Your Move**: Click on any empty cell to place your symbol (X always goes first)
 4. **Win the Game**: Align three of your symbols horizontally, vertically, or diagonally
-5. **Track Your Score**: Scores are displayed at the top and persist during your session
+5. **Track Your Score**: Scores are displayed at the top and persist across sessions via localStorage
 6. **Restart**: Click "Restart Game" to start a new round
 
 ## How It Works
@@ -206,7 +207,9 @@ Contributions are welcome! Please follow these steps:
 4. **Push** to the branch (`git push origin feature/amazing-feature`)
 5. **Open** a Pull Request
 
-Please read our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+Please read our [Contributing Guidelines](.github/CONTRIBUTING.md) and [Code of Conduct](.github/CODE_OF_CONDUCT.md) before contributing.
+
+For a step-by-step overview of how this project was built (architecture, phases, and design decisions), see the [Build Guide](docs/build-guide.md).
 
 ## License
 
